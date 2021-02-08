@@ -4,16 +4,13 @@ interface IUserModel extends mongoose.Document {
     github: string
     email: string
     password: string
-    personal?: {
+    personal: {
         name: string
         avatar: string
         location: string
         bio: string
+        title: string
     }
-    links?: {
-        type: string
-        url: string
-    }[]
 }
 
 const Schema = new mongoose.Schema({
@@ -21,17 +18,12 @@ const Schema = new mongoose.Schema({
     email: { type: String, required: true, lowercase: true },
     password: { type: String, required: true },
     personal: {
-        name: String,
-        avatar: String,
-        location: String,
-        bio: String
-    },
-    links: [
-        {
-            type: String,
-            url: String
-        }
-    ]
+        name: { type: String, required: true },
+        avatar: { type: String, required: true },
+        location: { type: String, required: true },
+        bio: { type: String, required: true },
+        title: { type: String, required: true }
+    }
 })
 
 export default mongoose.model<IUserModel>('User', Schema)
