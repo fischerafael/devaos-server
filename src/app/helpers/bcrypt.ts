@@ -13,3 +13,15 @@ export async function hashPassword(password: string, saltRounds?: number) {
         return err
     }
 }
+
+export async function validatePassword(
+    password: string,
+    hashedPassword: string
+) {
+    try {
+        const isValid = await bcrypt.compare(password, hashedPassword)
+        return isValid
+    } catch (err) {
+        return err
+    }
+}
