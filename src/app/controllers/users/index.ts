@@ -15,7 +15,6 @@ const UsersController = {
                 name,
                 avatar,
                 location,
-                bio,
                 title
             } = req.body as IUser
 
@@ -42,7 +41,6 @@ const UsersController = {
                 personal: {
                     name,
                     avatar,
-                    bio,
                     location,
                     title
                 }

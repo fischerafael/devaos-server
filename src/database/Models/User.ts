@@ -8,7 +8,6 @@ interface IUserModel extends mongoose.Document {
         name: string
         avatar: string
         location: string
-        bio: string
         title: string
     }
 }
@@ -21,7 +20,6 @@ const Schema = new mongoose.Schema({
         name: { type: String, required: true },
         avatar: { type: String, required: true },
         location: { type: String, required: true },
-        bio: { type: String, required: true },
         title: { type: String, required: true }
     }
 })

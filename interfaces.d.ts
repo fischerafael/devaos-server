@@ -6,5 +6,4 @@ interface IUser {
     title: string
     avatar: string
     location: string
-    bio: string
 }
