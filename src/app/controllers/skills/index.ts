@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
-import Skill from '../../../database/Models/Skill'
-import User from '../../../database/Models/User'
-import { formatResponse } from '../../../helpers'
+
+import { SkillsServices } from '../../../services/skills'
 
 interface IBody {
     title: string
@@ -27,30 +26,20 @@ const SkillsController = {
             console.log(err)
             return res.status(500).json(err)
         }
+    },
+    async delete(req: Request, res: Response) {
+        try {
+            const { status, data } = await SkillsServices.delete({
+                skillId: req.params.skill_id,
+                userId: req.params.user_id
+            })
+
+            return res.status(status).json(data)
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json(err)
+        }
     }
 }
 
 export default SkillsController
-
-const MAX_SKILLS = 10
-
-export const SkillsServices = {
-    async create(data: { title: string; description?: string; user: string }) {
-        const hasUser = await User.findById(data.user)
-        if (!hasUser) return formatResponse(404, 'User does not exist')
-
-        const hasOverMax = await Skill.find({ user: data.user })
-        if (hasOverMax >= MAX_SKILLS)
-            return formatResponse(
-                403,
-                `Maximum of ${MAX_SKILLS} skills reached`
-            )
-
-        const skill = await Skill.create({
-            title: data.title,
-            description: data.description
-        })
-
-        return formatResponse(200, skill)
-    }
-}
