@@ -25,7 +25,7 @@ export const ProfileServices = {
             .populate('skills')
             .populate('experiences')
             .populate('bio')
-        if (!user) return formatResponse(404, 'Not found')
+        if (!user) return formatResponse(404, { data: 'Not Found' })
 
         user.password = undefined
 
