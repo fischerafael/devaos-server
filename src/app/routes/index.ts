@@ -5,6 +5,7 @@ import SessionsController from '../controllers/sessions'
 
 import { Router } from 'express'
 import SkillsController from '../controllers/skills'
+import ProfileController from '../controllers/profile'
 
 const routes = Router()
 
@@ -24,6 +25,8 @@ routes.delete(
 
 routes.post('/users/:user_id/skills', SkillsController.create)
 routes.delete('/users/:user_id/skills/:skill_id', SkillsController.delete)
+
+routes.get('/profiles/:github', ProfileController.show)
 
 routes.post('/sessions', SessionsController.create)
 
