@@ -54,7 +54,7 @@ export const ExperiencesService = {
         const deletedExp = await Experience.findByIdAndRemove(data.expId)
         if (!deletedExp) return formatResponse(404, 'Experience did not exist')
 
-        hasUser.experiences.push(deletedExp)
+        hasUser.experiences.pull(deletedExp)
         await hasUser.save()
 
         return formatResponse(200, { deleted: 'ok', deletedExp })
