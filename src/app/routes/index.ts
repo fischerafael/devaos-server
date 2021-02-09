@@ -1,6 +1,7 @@
-import SessionsController from '../controllers/sessions'
 import UserController from '../controllers/users'
 import BioController from '../controllers/bio'
+import ExperiencesController from '../controllers/experiences'
+import SessionsController from '../controllers/sessions'
 
 import { Router } from 'express'
 
@@ -11,8 +12,14 @@ routes.get('/', (req, res) => res.send('API'))
 routes.post('/users', UserController.create)
 routes.get('/users', UserController.index)
 
-routes.post('/users/bio/:user_id', BioController.create)
-routes.delete('/users/bio/:user_id', BioController.delete)
+routes.post('/users/:user_id/bio', BioController.create)
+routes.delete('/users/:user_id/bio', BioController.delete)
+
+routes.post('/users/:user_id/experiences/:type', ExperiencesController.create)
+routes.delete(
+    '/users/:user_id/experiences/:exp_id',
+    ExperiencesController.delete
+)
 
 routes.post('/sessions', SessionsController.create)
 
