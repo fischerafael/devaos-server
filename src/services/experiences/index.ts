@@ -39,14 +39,23 @@ export const ExperiencesService = {
             description: data.description
         })
 
+        hasUser.experiences.push(experience)
+        await hasUser.save()
+
         return formatResponse(200, experience)
     },
     async delete(data: { userId: string; expId: string }) {
+        const hasUser = await User.findById(data.userId)
+        if (!hasUser) return formatResponse(404, 'User does not exist')
+
         const belongsToUser = await Experience.findOne({ user: data.userId })
         if (!belongsToUser) return formatResponse(409, 'Operation not allowed')
 
         const deletedExp = await Experience.findByIdAndRemove(data.expId)
         if (!deletedExp) return formatResponse(404, 'Experience did not exist')
+
+        hasUser.experiences.push(deletedExp)
+        await hasUser.save()
 
         return formatResponse(200, { deleted: 'ok', deletedExp })
     }

@@ -22,15 +22,25 @@ export const SkillsServices = {
             user: data.user
         })
 
+        hasUser.skills.push(skill)
+        await hasUser.save()
+
         return formatResponse(200, skill)
     },
     async delete(data: { skillId: string; userId: string }) {
+        const hasUser = await User.findById(data.userId)
+        if (!hasUser) return formatResponse(404, 'User does not exist')
+
         const belongsToUser = await Skill.findOne({ user: data.userId })
         if (!belongsToUser) return formatResponse(409, 'Operation not allowed')
 
-        const deletedExp = await Skill.findByIdAndRemove(data.skillId)
-        if (!deletedExp) return formatResponse(404, 'Experience did not exist')
+        const deletedSkill = await Skill.findByIdAndRemove(data.skillId)
+        if (!deletedSkill)
+            return formatResponse(404, 'Experience did not exist')
 
-        return formatResponse(200, { deleted: 'ok', deletedExp })
+        hasUser.skills.pull(deletedSkill)
+        await hasUser.save()
+
+        return formatResponse(200, { deleted: 'ok', deletedSkill })
     }
 }

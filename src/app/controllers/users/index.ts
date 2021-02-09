@@ -54,6 +54,9 @@ const UsersController = {
     async index(req: Request, res: Response) {
         try {
             const users = await User.find()
+                .populate('skills')
+                .populate('experiences')
+                .populate('bio')
 
             return res.status(200).json(users)
         } catch (err) {
