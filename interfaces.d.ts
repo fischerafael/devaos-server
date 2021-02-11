@@ -6,4 +6,6 @@ interface IUser {
     title: string
     avatar: string
     location: string
+    linkedin?: string
+    blog?: string
 }

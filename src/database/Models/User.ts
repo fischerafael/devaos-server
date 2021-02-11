@@ -4,6 +4,10 @@ interface IUserModel extends mongoose.Document {
     github: string
     email: string
     password: string
+    links: {
+        linkedin?: string
+        blog?: string
+    }
     personal: {
         name: string
         avatar: string
@@ -19,6 +23,10 @@ const Schema = new mongoose.Schema({
     github: { type: String, required: true, lowercase: true },
     email: { type: String, required: true, lowercase: true },
     password: { type: String, required: true },
+    links: {
+        linkedin: String,
+        blog: String
+    },
     personal: {
         name: { type: String, required: true },
         avatar: { type: String, required: true },

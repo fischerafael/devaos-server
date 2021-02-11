@@ -15,7 +15,9 @@ const UsersController = {
                 name,
                 avatar,
                 location,
-                title
+                title,
+                linkedin,
+                blog
             } = req.body as IUser
 
             const existingUser = await User.findOne({ github: github })
@@ -38,6 +40,10 @@ const UsersController = {
                 github,
                 email,
                 password: hashedPassword,
+                links: {
+                    blog,
+                    linkedin
+                },
                 personal: {
                     name,
                     avatar,
